@@ -1,0 +1,16 @@
+.movies_list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  list-style: none;
+}
+.movies_list_container {
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.trending_movie_title {
+  color: black;
+}
