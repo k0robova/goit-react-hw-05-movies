@@ -1,10 +1,10 @@
 import React from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
-
+import css from './Layout.module.css';
 const Layout = () => {
   return (
     <div>
-      <header>
+      <header className={css.header_layout}>
         <ul>
           <li>
             <NavLink to="/">Home</NavLink>

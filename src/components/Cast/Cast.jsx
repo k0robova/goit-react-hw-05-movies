@@ -2,6 +2,8 @@ import { fetchMovieCast } from 'api';
 import { useEffect, useState } from 'react';
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import css from './Cast.module.css';
+import { Loader } from 'components/Loader/Loader';
 
 const Cast = () => {
   const { movieId } = useParams();
@@ -29,16 +31,16 @@ const Cast = () => {
   }, [movieId]);
 
   const defaultImage =
-    'https://ireland.apollo.olxcdn.com/v1/files/0iq0gb9ppip8-UA/image;s=1000x700';
+    'https://via.placeholder.com/250x375.png?text=Image+Not+Found';
 
   return (
     <div>
-      {loading && <h1>Loading...</h1>}
+      {loading && <Loader />}
 
-      <ul>
+      <ul className={css.cast_list}>
         {castMovie.length > 0 ? (
           castMovie.map(({ profile_path, name, character, id }) => (
-            <li key={id}>
+            <li key={id} className={css.cast_item}>
               <img
                 src={
                   profile_path

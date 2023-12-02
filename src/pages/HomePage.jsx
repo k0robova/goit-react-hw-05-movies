@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { fetchTrendingList } from 'api';
 import MoviesList from 'components/MoviesList/MoviesList';
+import { Loader } from 'components/Loader/Loader';
 
 const HomePage = () => {
   const [movieItems, setMovieItems] = useState([]);
@@ -27,7 +28,7 @@ const HomePage = () => {
   return (
     <div>
       <h1>Trending today</h1>
-      {loading && <h1>Loading...</h1>}
+      {loading && <Loader />}
       {error && (
         <p>Oops! Something went wrong! Please try reloading this page!</p>
       )}

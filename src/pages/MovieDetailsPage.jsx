@@ -1,4 +1,5 @@
 import { fetchMovieById } from 'api';
+import { Loader } from 'components/Loader/Loader';
 import SelectedMovieDetails from 'components/SelectedMovieDetails/SelectedMovieDetails';
 import React, { useEffect, useState } from 'react';
 import { NavLink, Outlet, useParams } from 'react-router-dom';
@@ -35,7 +36,7 @@ const MovieDetailsPage = () => {
     //   <SelectedMovieDetails movie={selectedMovie} />;
     // </div>
     <div>
-      {loading && <h2>Loading...</h2>}
+      {loading && <Loader />}
 
       {/* <Link to={backLinkRef.current.state?.from ?? '/'}>
         <b>◄ Go back ◄</b>

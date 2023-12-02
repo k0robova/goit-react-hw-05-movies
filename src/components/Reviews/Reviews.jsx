@@ -3,6 +3,7 @@ import React from 'react';
 import { fetchMovieReviews } from 'api';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { Loader } from 'components/Loader/Loader';
 
 const Reviews = () => {
   const { movieId } = useParams();
@@ -31,7 +32,7 @@ const Reviews = () => {
 
   return (
     <div>
-      {loading && <h1>Loading...</h1>}
+      {loading && <Loader />}
 
       {reviewsMovie.length > 0 ? (
         reviewsMovie.map(({ author, content, id }) => (
