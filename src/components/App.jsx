@@ -22,6 +22,7 @@ export const App = () => {
       </Route>
 
       <Route path="*" element={<NotFoundPage />} />
+      {/* ту має бути <Navigate to ="/"/>*/}
     </Routes>
   );
 };
