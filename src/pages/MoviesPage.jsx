@@ -13,6 +13,9 @@ const MoviesPage = () => {
 
   const [searchParams] = useSearchParams();
 
+  // const location = useLocation();
+  // console.log(location);
+
   useEffect(() => {
     const value = searchParams.get('search');
     if (value) {
@@ -20,7 +23,7 @@ const MoviesPage = () => {
     }
   }, [searchParams]);
 
-  const handleSearchFormSubmit = query => {
+  const handleSearchFormSubmit = ({ query }) => {
     if (nameMovie === query) {
       return;
     }
@@ -28,6 +31,11 @@ const MoviesPage = () => {
   };
 
   useEffect(() => {
+    // if (!nameMovie) {
+    //   window.alert('введіть щось в поле пошуку ');
+    //   return;
+    // }
+
     async function getSearchMovies() {
       try {
         setLoading(true);
@@ -47,51 +55,13 @@ const MoviesPage = () => {
 
   return (
     <>
-      <SearchForm onSubmit={handleSearchFormSubmit} />
       {loading && <Loader />}
+
+      <SearchForm onSubmit={handleSearchFormSubmit} />
+
       {nameMovie && <MoviesList items={movieItems} />}
     </>
   );
 };
 
 export default MoviesPage;
-
-// !2
-// const MoviesPage = () => {
-//   const [nameMovie, setNameMovie] = useState('');
-//   const [loading, setLoading] = useState(false);
-//   const [movieItems, setMovieItems] = useState([]);
-
-//   const handleSearchFormSubmit = query => {
-//     if (nameMovie === query) {
-//       return;
-//     }
-//     setNameMovie(query);
-//   };
-
-//   useEffect(() => {
-//     async function getSearchMovies() {
-//       try {
-//         setLoading(true);
-//         const searchMovies = await fetchMoviesBySearch(nameMovie);
-//         setMovieItems(searchMovies);
-//       } catch (error) {
-//         window.alert(
-//           'Oops! Something went wrong! Please try reloading this page! 🥹'
-//         );
-//       } finally {
-//         setLoading(false);
-//       }
-//     }
-
-//     getSearchMovies();
-//   }, [nameMovie]);
-
-//   return (
-//     <>
-//       <SearchForm onHandleSearchFormSubmit={handleSearchFormSubmit} />
-//       {loading && <h1>Loading...</h1>}
-//       {nameMovie && <MoviesList items={movieItems} />}
-//     </>
-//   );
-// };

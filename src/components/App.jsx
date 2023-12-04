@@ -1,28 +1,62 @@
-import { Route, Routes } from 'react-router-dom';
-
-import HomePage from 'pages/HomePage';
-import MoviesPage from 'pages/MoviesPage';
-import MovieDetailsPage from 'pages/MovieDetailsPage';
+import { Suspense, lazy } from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { Loader } from './Loader/Loader';
 
 import Layout from './Layout/Layout';
-import Cast from './Cast/Cast';
-import Reviews from './Reviews/Reviews';
-import NotFoundPage from 'pages/NotFoundPage';
+const HomePage = lazy(() => import('pages/HomePage'));
+const MoviesPage = lazy(() => import('pages/MoviesPage'));
+const MovieDetailsPage = lazy(() => import('pages/MovieDetailsPage'));
+const Cast = lazy(() => import('./Cast/Cast'));
+const Reviews = lazy(() => import('./Reviews/Reviews'));
 
 export const App = () => {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route index element={<HomePage />} />
-        <Route path="movies" element={<MoviesPage />} />
-        <Route path="movies/:movieId" element={<MovieDetailsPage />}>
-          <Route path="cast" element={<Cast />} />
-          <Route path="reviews" element={<Reviews />} />
+        <Route
+          index
+          element={
+            <Suspense fallback={<Loader />}>
+              <HomePage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="movies"
+          element={
+            <Suspense fallback={<Loader />}>
+              <MoviesPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="movies/:movieId"
+          element={
+            <Suspense fallback={<Loader />}>
+              <MovieDetailsPage />
+            </Suspense>
+          }
+        >
+          <Route
+            path="cast"
+            element={
+              <Suspense fallback={<Loader />}>
+                <Cast />
+              </Suspense>
+            }
+          />
+          <Route
+            path="reviews"
+            element={
+              <Suspense fallback={<Loader />}>
+                <Reviews />
+              </Suspense>
+            }
+          />
         </Route>
       </Route>
 
-      <Route path="*" element={<NotFoundPage />} />
-      {/* ту має бути <Navigate to ="/"/>*/}
+      <Route path="*" element={<Navigate to={'/'} />}></Route>
     </Routes>
   );
 };

@@ -3,8 +3,8 @@ import css from './SelectedMovieDetails.module.css';
 const SelectedMovieDetails = ({
   movie: { poster_path, title, release_date, vote_average, overview, genres },
 }) => {
-  const defaultImg =
-    'https://ireland.apollo.olxcdn.com/v1/files/0iq0gb9ppip8-UA/image;s=1000x700';
+  const defaultImage =
+    'https://via.placeholder.com/250x375.png?text=Image+Not+Found';
 
   return (
     <div className={css.selected_container}>
@@ -12,7 +12,7 @@ const SelectedMovieDetails = ({
         src={
           poster_path
             ? `https://image.tmdb.org/t/p/w500/${poster_path}`
-            : defaultImg
+            : defaultImage
         }
         alt={title}
         width={400}

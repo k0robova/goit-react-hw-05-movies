@@ -2,13 +2,25 @@ import { fetchMovieById } from 'api';
 import { Loader } from 'components/Loader/Loader';
 import SelectedMovieDetails from 'components/SelectedMovieDetails/SelectedMovieDetails';
 import React, { useEffect, useState } from 'react';
-import { NavLink, Outlet, useParams } from 'react-router-dom';
+import {
+  Link,
+  NavLink,
+  Outlet,
+  useLocation,
+  useParams,
+} from 'react-router-dom';
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
 
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  // const backLinkRef = useRef(location.state?.from ?? '/');
+  // const backLink = location.state?.from ?? '/';
+  // console.log(location);
+  const location = useLocation();
+  // const backLinkRef = useRef(location);
 
   useEffect(() => {
     if (!movieId) return;
@@ -26,24 +38,25 @@ const MovieDetailsPage = () => {
         setLoading(false);
       }
     }
-    if (typeof movieId !== 'undefined') {
-      getMovie();
-    }
+    // if (typeof movieId !== 'undefined') {
+    //   getMovie();
+    // }
+    getMovie();
   }, [movieId]);
 
   return (
-    // <div>
-    //   <SelectedMovieDetails movie={selectedMovie} />;
-    // </div>
     <div>
       {loading && <Loader />}
 
-      {/* <Link to={backLinkRef.current.state?.from ?? '/'}>
-        <b>◄ Go back ◄</b>
-      </Link> */}
-      {selectedMovie && <SelectedMovieDetails movie={selectedMovie} />}
+      {/* <Link to={backLinkRef.current.state?.from ?? '/'}>Go back</Link> */}
 
-      {/* <AddInfo>Additional infomation</AddInfo> */}
+      {/* <Link to={backLinkRef.current.state?.from ?? '/'}>Go back</Link> */}
+
+      {/* {selectedMovie && <Link to={backLinkRef.current}>Go back</Link>} */}
+
+      <Link to={location.state?.from || '/'}>Go back</Link>
+
+      {selectedMovie && <SelectedMovieDetails movie={selectedMovie} />}
 
       <ul>
         <li>
