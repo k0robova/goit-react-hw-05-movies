@@ -1,7 +1,7 @@
 import { fetchMovieById } from 'api';
 import { Loader } from 'components/Loader/Loader';
 import SelectedMovieDetails from 'components/SelectedMovieDetails/SelectedMovieDetails';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Link,
   NavLink,
@@ -16,11 +16,8 @@ const MovieDetailsPage = () => {
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  // const backLinkRef = useRef(location.state?.from ?? '/');
-  // const backLink = location.state?.from ?? '/';
-  // console.log(location);
   const location = useLocation();
-  // const backLinkRef = useRef(location);
+  const backLinkRef = useRef(location.state?.from ?? '/');
 
   useEffect(() => {
     if (!movieId) return;
@@ -47,14 +44,7 @@ const MovieDetailsPage = () => {
   return (
     <div>
       {loading && <Loader />}
-
-      {/* <Link to={backLinkRef.current.state?.from ?? '/'}>Go back</Link> */}
-
-      {/* <Link to={backLinkRef.current.state?.from ?? '/'}>Go back</Link> */}
-
-      {/* {selectedMovie && <Link to={backLinkRef.current}>Go back</Link>} */}
-
-      <Link to={location.state?.from || '/'}>Go back</Link>
+      <Link to={backLinkRef.current}>Go back</Link>
 
       {selectedMovie && <SelectedMovieDetails movie={selectedMovie} />}
 

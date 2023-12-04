@@ -33,6 +33,9 @@ const Reviews = () => {
   return (
     <div>
       {loading && <Loader />}
+      {error && (
+        <h2>'Oops! Something went wrong! Please try reloading this page!'</h2>
+      )}
 
       {reviewsMovie.length > 0 ? (
         reviewsMovie.map(({ author, content, id }) => (

@@ -30,7 +30,7 @@ const HomePage = () => {
       <h1>Trending today</h1>
       {loading && <Loader />}
       {error && (
-        <p>Oops! Something went wrong! Please try reloading this page!</p>
+        <h2>Oops! Something went wrong! Please try reloading this page!</h2>
       )}
       {movieItems.length > 0 && <MoviesList items={movieItems} />}
     </div>

@@ -36,6 +36,9 @@ const Cast = () => {
   return (
     <div>
       {loading && <Loader />}
+      {error && (
+        <h2>'Oops! Something went wrong! Please try reloading this page!'</h2>
+      )}
 
       <ul className={css.cast_list}>
         {castMovie.length > 0 ? (
