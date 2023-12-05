@@ -6,40 +6,27 @@ import { useSearchParams } from 'react-router-dom';
 import { Loader } from 'components/Loader/Loader';
 
 const MoviesPage = () => {
-  const [nameMovie, setNameMovie] = useState('');
-
   const [loading, setLoading] = useState(false);
   const [movieItems, setMovieItems] = useState([]);
 
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  // const location = useLocation();
-  // console.log(location);
-
-  useEffect(() => {
-    const value = searchParams.get('search');
-    if (value) {
-      setNameMovie(value);
-    }
-  }, [searchParams]);
-
-  const handleSearchFormSubmit = ({ query }) => {
-    if (nameMovie === query) {
+  const handleSearchFormSubmit = query => {
+    if (!query) {
       return;
     }
-    setNameMovie(query);
+    // setNameMovie(query);
+    setSearchParams({ search: query });
   };
 
   useEffect(() => {
-    // if (!nameMovie) {
-    //   window.alert('введіть щось в поле пошуку ');
-    //   return;
-    // }
+    const value = searchParams.get('search');
+    if (!value) return;
 
     async function getSearchMovies() {
       try {
         setLoading(true);
-        const searchMovies = await fetchMoviesBySearch(nameMovie);
+        const searchMovies = await fetchMoviesBySearch(value);
         setMovieItems(searchMovies);
       } catch (error) {
         window.alert(
@@ -49,9 +36,8 @@ const MoviesPage = () => {
         setLoading(false);
       }
     }
-
     getSearchMovies();
-  }, [nameMovie]);
+  }, [searchParams]);
 
   return (
     <>
@@ -59,7 +45,7 @@ const MoviesPage = () => {
 
       <SearchForm onSubmit={handleSearchFormSubmit} />
 
-      {nameMovie && <MoviesList items={movieItems} />}
+      {searchParams && <MoviesList items={movieItems} />}
     </>
   );
 };
